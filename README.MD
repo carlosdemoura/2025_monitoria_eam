@@ -1,3 +1,3 @@
 # Material da Monitoria de EAM 2025
 
-Material da disciplina de Elementos de Aprendizado de Máquina
+Material usado pelo monitor da disciplina de Elementos de Aprendizado de Máquina.

@@ -1,0 +1,110 @@
+---
+title: "Teste"
+author: "Carlos de Moura"
+toc: true
+lang: pt
+format: html
+---
+
+## Capítulo 1
+
+Olá, Mundo! Abaixo temos os níveis dos cabeçalhos em markdown.
+
+### Seção 1
+
+Lorem ipsum
+
+#### Subseção 1.1
+
+Lorem ipsum
+
+##### Subsubseção 1.1.1
+
+Lorem ipsum
+
+## Capítulo 2
+
+Lorem ipsum
+
+## Outros elementos de markdown
+
+Você pode escrever em _itálico_, **negrito**, `código embutido`.
+
+Crie listas:
+
+- Item 1
+- Item 2
+  - Subitem
+- Item 3
+
+
+Para aprender mais sobre quarto visite [o site oficial da linguagem](https://quarto.org). Outra fonte de informações é o [livro sobre DS](https://pt.r4ds.hadley.nz/quarto.html) do [Hadley Wickham](https://github.com/hadley/). A equação do modelo de regresão linear pode ser escrita usando $\LaTeX$, temos que $Y = X \beta + \epsilon$.
+
+É possível fazer comentários no corpo do texto em markdown usando a sintaxe dos comentários em HTML, isto é, colocando o comentário entre `<!--` e `-->`. Por exemplo, `<!-- Agora você vê este comentário -->`.
+
+<!-- Agora não vê! -->
+
+## Usando imagens e gráficos
+
+![Legenda: Mapa do Brasil (dentro de uma pasta)](img/bandeira.png){width="40%"}
+![Legenda: Mapa do Brasil (solta na pasta do projeto)](bandeira.png){width="40%"}
+
+```{r}
+#| label: fig-scatter1
+#| fig-cap: Um gráfico de exemplo.
+plot(1:10)
+```
+
+```{r}
+#| label: fig-scatter
+#| fig-width: 50
+#| fig-cap: Um gráfico de exemplo.
+par(mfrow=c(2,3))
+plot(lm(wt~hp, data=mtcars))
+plot(1:10)
+plot((1:10)^2)
+```
+
+Conforme a @fig-scatter, vemos que ...
+
+## Exemplos de tabelas
+
+### Digitada a mão
+
+| Default | Left | Right | Center |
+|---------|:-----|------:|:------:|
+| 12      | 12   |    12 |   12   |
+| 123     | 123  |   123 |  123   |
+| 1       | 1    |     1 |   1    |
+
+### Gerada por código
+
+```{r}
+knitr::kable(head(mtcars), caption = "Exemplo de tabela com mtcars")
+```
+
+### Importada de um excel
+
+```{r}
+readxl::read_excel("tabela_em_excel.xlsx") |>
+  knitr::kable(caption = "Minha opinião sobre alguns modelos")
+```
+
+## Sobre chunks e códigos
+
+```{r}
+#| label: banana
+x = 10
+y = 20
+```
+
+O valor da primeira variável é `r x`, já o da segunda é `r y`. É claro que a primeira variável é `r ifelse(x > y, "maior que", "menor que ou igual a" )` segunda.
+
+```{r}
+x = x + 10
+print(x)
+```
+
+A seguinte tabela resume bem as opções das chunks.
+
+![Retirado do livro do Hadley Wickham.](options.png){fig-align="center" width="60%" height="60%"}
