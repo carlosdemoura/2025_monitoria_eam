@@ -4,7 +4,7 @@
 
 ##Exemplo Birth data
 #seleciona o arquivo "mlg_birth.csv"
-dt <- read.table( file.choose() , header=TRUE, sep=",")
+dt <- read.table("mlg_birth.csv", header=TRUE, sep=",")
 
 ## Poisson Link: log, identity, sqrt
 ## Ajusta o modelo Poisson com link log

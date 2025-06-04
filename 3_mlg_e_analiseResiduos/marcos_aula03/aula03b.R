@@ -6,7 +6,7 @@
 
 ##Exemplo Birth data
 #seleciona o arquivo "mlg_birth.csv"
-dt <- read.table( file.choose() , header=TRUE, sep=",", stringsAsFactors = TRUE)
+dt <- read.table("mlg_birth.csv", header=TRUE, sep=",", stringsAsFactors = TRUE)
 
 names(dt) ## Mostra os nomes das colunas da base de dados
 

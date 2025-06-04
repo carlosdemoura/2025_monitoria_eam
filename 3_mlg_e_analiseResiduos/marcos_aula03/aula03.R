@@ -4,7 +4,7 @@
 
 ##Exemplo Diabetes data
 #seleciona o arquivo "diabetes.csv"
-dt <- read.table( file.choose() , header=TRUE, sep=",",stringsAsFactors = TRUE)
+dt <- read.table("diabetes.csv", header=TRUE, sep=",",stringsAsFactors = TRUE)
 
 pairs(dt)
 names(dt)
