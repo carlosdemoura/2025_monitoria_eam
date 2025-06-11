@@ -52,9 +52,9 @@ ggplot() +
 # lines(x,predict(modelo.glm,newdata=nd,type='response'),col='red')
 # lines(x,predict(modelo.lm,newdata=nd,type='response'),col='green')
 
-ggplot(dt, aes(age, children)) +
-  geom_point() +
-  geom_smooth(method = glm, method.args = list(family = poisson(link="log")))
+ggplot(dt, aes(x = age, y = children)) +
+  geom_point(size=2) +
+  geom_smooth(method = glm, formula = y ~ x, method.args = list(family = poisson(link="log")))
   #geom_smooth(method = glm, method.args = list(family = poisson(link="sqrt")))
 
 ggplot(dt, aes(age, children)) +

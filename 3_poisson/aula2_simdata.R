@@ -1,7 +1,6 @@
 library(tidyverse)
 
 n = 100
-
 beta1 = 1
 beta2 = -1
 

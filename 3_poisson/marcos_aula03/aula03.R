@@ -20,13 +20,6 @@ summary(modelo)
 modelo$deviance
 1-pchisq(modelo$deviance,modelo$df.residual) ## p-value "Deviance"
 
-## Poisson Link: identity
-modelo <- glm(deaths ~ offset(log(popn)) + age + gender, 
-              family = poisson(link = "identity"), data = dt)
-summary(modelo)
-modelo$deviance
-1-pchisq(modelo$deviance,modelo$df.residual) ## p-value "Deviance"
-
 ## Poisson Link: sqrt
 modelo <- glm(deaths ~ offset(log(popn)) + age + gender, 
               family = poisson(link = "sqrt"), data = dt)

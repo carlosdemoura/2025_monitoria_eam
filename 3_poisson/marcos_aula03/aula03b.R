@@ -82,8 +82,8 @@ shapiro.test(Ra)
  e2 <- numeric(n)		# limites superiores
  for(i in 1:n){
     e0    <- sort(e[i,])	# ordena cada percentil
-    e1[i] <- e0[floor(m*.05)]		# Percentil 5
-    e2[i] <- e0[floor(m*.95)]		# Percentil 95
+    e1[i] <- e0[floor(m*.005)]		# Percentil 5
+    e2[i] <- e0[floor(m*.995)]		# Percentil 95
  }
 
  med   <- apply(e,1,mean)	# Define as medias para cada percentil
