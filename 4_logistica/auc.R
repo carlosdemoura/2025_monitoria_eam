@@ -1,6 +1,7 @@
+# aula05.R
+
 #install.packages("pROC")  # se necessário
 library(pROC)
 
-curva.roc = roc(trn$y, predict(modelo, type="response"))
-plot(curva.roc)
+curva.roc = pROC::roc(dados$Response, predict(modelo, type="response"))
 curva.roc$auc

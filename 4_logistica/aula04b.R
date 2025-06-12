@@ -70,7 +70,7 @@ e <- matrix(0,n,m)	# Armazena as simulacoes
 for(i in 1:m){
   # Gera novas saidas a partir dos valores ajustados (originais)
   nresp <- rbinom(n, 1, fitted(fit.model))
-  fit   <- glm(nresp ~ X, poisson(link = "log"))
+  fit   <- glm(nresp ~ X, binomial)
   w     <- fit$weights
   W     <- diag(w)
   H     <- solve(t(X)%*%W%*%X)

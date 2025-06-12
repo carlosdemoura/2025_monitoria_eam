@@ -20,7 +20,7 @@ x1 <- c(3.70, 3.50, 1.25, 0.75, 0.80, 0.70, 0.60, 1.10, 0.90, 0.90, 0.80, 0.55, 
 trn    <- data.frame(y=y, x1=x1);
 modelo <- glm(y ~ x1, family = binomial, data = trn)
 summary(modelo)
-c( modelo$deviance, 1-pchisq(modelo$deviance,modelo$df.residual) )
+c( modelo$deviance, pchisq(modelo$deviance,modelo$df.residual, lower.tail = F) )
 
 ##plota residuos
 par(mfrow=c(2,2))
