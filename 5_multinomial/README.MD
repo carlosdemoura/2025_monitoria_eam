@@ -1,0 +1,1 @@
+Revisão computacional referente às aulas 6 e 7.
