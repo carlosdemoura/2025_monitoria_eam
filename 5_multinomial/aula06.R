@@ -35,9 +35,9 @@ summary(mbinom)
 1 - pchisq(mbinom$deviance,mbinom$df.residual) ## p-value "Deviance"
 dados$Binomial <- predict(mbinom, type="response") * dados$Number
 
- ## Comentarios Poisson versus Binomial
- ## VAMOS SUPOR NUMBER = 50 and Poison = D
-new.dt  <- data.frame(LogDose = seq(0.2, 2, length.out=500))
+## Comentarios Poisson versus Binomial
+## VAMOS SUPOR NUMBER = 50 and Poison = D
+new.dt  <- data.frame(LogDose = seq(0.2, 10, length.out=500))
 new.dt$Number <- 50
 new.dt$Poison <- "D"
   
@@ -51,7 +51,7 @@ new.dt$binomial <- predict(mbinom, newdata=new.dt, type="response")
 new.dt$SupeB <- qbinom(0.95, new.dt$Number, new.dt$binom)
 new.dt$InfeB <- qbinom(0.05, new.dt$Number, new.dt$binom)
 
-  
+
 par(mfrow=c(2,1))
 #plot Poisson
 plot(Kill ~ LogDose, data=dados, col="dark green", pch=15, xlim=c(0.2, 2))

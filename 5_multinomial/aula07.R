@@ -1,15 +1,19 @@
 ## - - - - - - - - - - - - - - - - - - - - - - - - - ##
 ## Regressao Multinomial
 ## - - - - - - - - - - - - - - - - - - - - - - - - - ##
-rm(list=ls(all=TRUE))
+library(tidyverse)
+
 ## install.packages('mlogit', dependencies=TRUE)  # se necessário
 library(mlogit)
 
 #seleciona o arquivo "mlogit.csv"
-mydata <- read.csv("mlogit.csv")
+mydata <-
+  read.csv("mlogit.csv") %>%
+  mutate(
+    brand = factor(brand)
+  )
 
 # Coloca a variavel "brand" como "fator" (categorica)
-mydata$brand <- as.factor(mydata$brand)
 levels(mydata$brand) <- c("A", "B", "C")
 mydata$male  <- 1 - mydata$female 
 
@@ -23,6 +27,12 @@ mlogit.model <- mlogit(brand ~ 0|female+age, data = mldata,
 summary(mlogit.model)
 
 # Predicao de novas observacoes (OBS: as entradas tem que ser "replicadas")
-saida <- predict(mlogit.model, newdata=data.frame(female=rep(1, 3),                        
-                  age=rep(38, 3)))
+
+newdata = 
+  data.frame(
+    female = rep(0, 3),                        
+    age    = rep(20, 3)
+    )
+
+saida <- predict(mlogit.model, newdata=newdata)
 round(saida, digits=5)
