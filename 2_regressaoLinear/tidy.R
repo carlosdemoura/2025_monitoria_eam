@@ -1,29 +1,52 @@
 library(tidymodels)
 library(ggplot2)
-library(reglin)
 library(tidyverse)
 
 df =
-  "mlg_prostate.csv" %>%
-  read.csv() %>%
-  select(-index) %>%
-  rename(lpsa = "lpsa.y.")
+  read.csv("dados/mlg_prostate.csv") %>%
+  select(-index) %>% 
+  rename(lpsa = "lpsa.y.") %>%
+  as_tibble()
 
+################
+####  lpsa  ####
+################
 
-##################
-####  R BASE  ####
-##################
+# log of PSA (lpsa) 
+# log cancer volume (lcavol)
+# log prostate weight lweight,
+# age
+# log of benign prostatic hyperplasia amount lbph
+# seminal vesicle invasion svi
+# log of capsular penetration lcp
+# Gleason score gleason
+# percent of Gleason scores 4 or 5 pgg45
 
 hist(df$lpsa, prob=TRUE, main="lpsa density", xlab = "lpsa", ylab="density")
 rug(df$lpsa)
 
-mod_base = lm(lpsa ~ . -svi -gleason, df)
-summary(mod_base)
-plot(mod_base)
+ggplot(df, aes(x=lpsa)) +
+  geom_histogram(bins = 10, col = "white") +
+  geom_rug() + 
+  labs(title="Histograma")
 
-qqnorm(mod_base$residuals)
-qqline(mod_base$residuals)
+mod = lm(lpsa ~ age, df)
+summary(mod)
 
+qqnorm(mod$residuals)
+qqline(mod$residuals)
+
+plot(mod, which = 2)
+
+ggplot(df, aes(lpsa)) +
+  stat_ecdf(geom = "step") +
+  stat_function(
+    fun = function(q) pnorm(q, mean(df$lpsa), sd(df$lpsa))
+  )
+
+ggplot(df, aes(sample = lpsa)) +
+  stat_qq() +
+  stat_qq_line()
 
 ######################
 ####  TIDYMODELS  ####
@@ -66,6 +89,8 @@ metrics(predict, truth = real, estimate = predito)
 ####  PLOTS  ####
 #################
 
+with(predict, plot(real, predito))
+
 ggplot(predict, aes(x = real, y = predito)) +
   geom_point() +
   geom_abline(linetype = "dashed", color = "blue") +
@@ -75,5 +100,3 @@ ggplot(predict, aes(x = real, y = predito)) +
 mod = lm(lpsa ~ .-svi -gleason, df_treino)
 
 car::crPlots(mod)
-
-reglin::ggresiduals(mod)

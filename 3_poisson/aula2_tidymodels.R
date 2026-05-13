@@ -1,7 +1,7 @@
 library(tidymodels)
 library(poissonreg)
 
-dt = read.table("mlg_birth.csv", header=TRUE, sep=",")
+dt = read.table("dados/mlg_birth.csv", header=TRUE, sep=",")
 
 mod =
   poisson_reg() %>%

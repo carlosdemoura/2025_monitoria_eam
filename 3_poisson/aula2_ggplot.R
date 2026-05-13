@@ -6,7 +6,7 @@ library(tidyverse)
 ###############
 
 df =
-  data.frame(
+  tibble(
     x = c(-1, -1, 0, 0, 0, 0, 1, 1, 1),
     y = c(2, 3, 6, 7, 8, 9, 10, 12, 15)
     )
@@ -35,9 +35,21 @@ novos_dados =
 
 ggplot() +
   geom_point(data = df, aes(x = x, y = y), size = 2) +
-  geom_line(data = novos_dados, aes(x = x, y = predicao, color = link), size = 1) +
+  geom_line(data = novos_dados, aes(x = x, y = predicao, color = link), linewidth = 1) +
   labs(x = "x", y = "y", title = "Regressão de Poisson com Diferentes Ligações") +
   theme_minimal()
+
+
+
+
+ggplot(df, aes(x = x, y = y)) +
+  geom_point(size = 2) +
+  geom_smooth(
+    method = "glm",
+    method.args = list(family = poisson(link = "identity")),
+    se = FALSE
+  )
+
 
 
 ###############
