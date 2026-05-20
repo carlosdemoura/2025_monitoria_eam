@@ -1,7 +1,12 @@
 library(ggplot2)
 
-# aula04.R
+dados =
+  read.csv("dados/quantal.dat", sep="", stringsAsFactors = TRUE) |>
+  as_tibble() |>
+  mutate(
+    Response = as.numeric(Response == "P")
+  )
 
-ggplot(trn, aes(x = x1, y = y)) +
+ggplot(dados, aes(x = Rate, y = Response)) +
   geom_point(size=2) +
   geom_smooth(method = glm, formula = y ~ x, method.args = list(family = binomial(link="logit")))

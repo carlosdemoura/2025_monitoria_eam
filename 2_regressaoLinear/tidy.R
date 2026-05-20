@@ -37,24 +37,25 @@ qqnorm(mod$residuals)
 qqline(mod$residuals)
 
 plot(mod, which = 2)
+#?plot.lm
 
 ggplot(df, aes(lpsa)) +
   stat_ecdf(geom = "step") +
   stat_function(
-    fun = function(q) pnorm(q, mean(df$lpsa), sd(df$lpsa))
+    fun = function(q) pnorm(q, mean(df$lpsa), sd(df$lpsa)),
+    col = 2,
+    linewidth = 2
   )
 
 ggplot(df, aes(sample = lpsa)) +
   stat_qq() +
-  stat_qq_line()
+  stat_qq_line(col=2)
 
 ######################
 ####  TIDYMODELS  ####
 ######################
 
-# Ajuste
 set.seed(12345)
-
 split = initial_split(df, prop = 0.8, strata = lpsa)
 df_treino = training(split)
 df_teste  = testing(split)
@@ -76,10 +77,10 @@ reg_fit %>% tidy()
 # Previsões
 predict =
   predict(reg_fit, df_teste) %>% 
-  bind_cols(df_teste$lpsa) %>%
+  bind_cols(df_teste["lpsa"]) %>%
   rename(
     predito = ".pred",
-    real = "...2"
+    real = "lpsa"
   )
 
 metrics(predict, truth = real, estimate = predito)
@@ -97,6 +98,6 @@ ggplot(predict, aes(x = real, y = predito)) +
   labs(x = "Valor real", y = "Previsão") +
   theme_minimal()
 
-mod = lm(lpsa ~ .-svi -gleason, df_treino)
+mod2 = lm(lpsa ~ .-svi -gleason, df_treino)
 
-car::crPlots(mod)
+car::crPlots(mod2)
