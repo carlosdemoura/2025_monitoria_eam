@@ -9,4 +9,5 @@ dados =
 
 ggplot(dados, aes(x = Rate, y = Response)) +
   geom_point(size=2) +
-  geom_smooth(method = glm, formula = y ~ x, method.args = list(family = binomial(link="logit")))
+  geom_smooth(method = glm, formula = y ~ x, method.args = list(family = binomial(link="logit")), se = FALSE) +
+  geom_smooth(method = glm, formula = y ~ x, method.args = list(family = binomial(link="probit")), se = FALSE, col = "red")

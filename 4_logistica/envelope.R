@@ -1,4 +1,4 @@
-mlg.envelope = function(fit.model, sample.fun) {
+mlg.envelope = function(fit.model, sample.fun, m = 1000) {
   X <- model.matrix(fit.model)
   n <- nrow(X)
   p <- ncol(X)
@@ -12,7 +12,6 @@ mlg.envelope = function(fit.model, sample.fun) {
   td <- resid(fit.model,type="deviance")/sqrt(1-h)
   
   # Simulacao do envelope
-  m <- 1000
   e <- matrix(0,n,m)	# Armazena as simulacoes
   for(i in 1:m){
     # Gera novas saidas a partir dos valores ajustados (originais)
@@ -47,8 +46,13 @@ mlg.envelope = function(fit.model, sample.fun) {
   qqnorm(med,xlab="",ylab="",type="l",ylim=faixa,lty=2)	# Linha Central
 }
 
-mod = glm(Y~X[,2])
+mod = glm(Y~X[,2], family = binomial())
 
 mlg.envelope(mod, {\(n,eta) rbinom(n,1,eta)})
 
 hnp::hnp(mod, resid.type = "deviance")
+
+
+rbernoulli = function(n, p) {
+  rbinom(n, 1, p)
+}
