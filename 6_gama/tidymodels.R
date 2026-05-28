@@ -1,6 +1,6 @@
 library(tidymodels)
 
-dados = read.table("dados/oxidation_gamma.dat", header=TRUE, sep="")
+dados = read.table("dados/oxidation_gamma.dat", header=TRUE, sep="") |> as_tibble()
 split = initial_split(dados, prop = 0.8, strata = Rate)
 
 dados_treino = training(split)

@@ -9,12 +9,13 @@ mydata =
   mutate(
     brand = factor(brand)
   )
+
 split = initial_split(mydata, prop = 0.8, strata = brand)
 treino = training(split)
 teste  = testing(split)
 
 modelo =
-  multinom_reg(penalty = 0.01) |>
+  multinom_reg(penalty = NULL) |>
   set_engine("nnet") |>
   set_mode("classification")
 
@@ -27,3 +28,5 @@ fit =
   fit(wf, data = treino)
 
 fit
+
+# broom::tidy(fit)
